@@ -1,0 +1,28 @@
+In the 3 sql files, recommender systems based on the Title field, Summary Field and Starring field are developed. In the following lines is described how this recommender system is created, and what input data and processing steps are required for this recommender system and how the results of this file can be interpreted, and what the remarks are. 
+ 
+
+First of all, a table called 'movies' is created in which the format is provided to import the moviesFromMetacritic.csv correctly.
+
+Then the lexemes-Title/Summary/Starring field is added to the table in order to be able to let sql be able to process either the title, summary, of starring field correctly. 
+This is done by counting the amount of times that a certain string is provided, and comparing this to the strings in other movies that have these same type and amount of strings. This is what the function lexemes does. 
+Movies that have a higher amount of same type of strings in either the Lexemes-title/summary/starring field will receive a higher rating and will in turn pop up higher in the results document. 
+The rank float4 column makes sure that the outcome of the calculations in the lexemestable for the recommender system list will be ordered. The 'desc' function makes sure that this order is descending. Movies with higher similarities and a higher 'similarities' score will thus be higher in the rank.  
+
+Then a new table will be created called recommendationsbasedon(title/summary/starring) field with a score that has to higher than a specific amount. 
+For the recommendations based on the summaryfield, this rank needs to be higher than 0,95, which is ofcourse a very high rank. However, for the recommender system based on the Starring and the Title field, this rank was only higher than -1, because the results of these calculations were lower.  
+This indicates that the results of the summary field were much better, compared to the starring and title field, as these fiels had a better result. 
+The movies limit that can be provided is 50. 
+The last line that has copy in it makes sure that the results are copied into a new table. These results can also be seen in the other provided documents.  
+
+As the Summary field provided the highest amount of words in general for the 3 documents, this column provided the best information to create a recommender system. this could be seen according to the genre in which the other movies from the recommender system were provided. 
+This is logic, as the recommender system based on the summaryfield has more information/strings to provide its recommendation/prediction for. 
+
+The starring field was worse compared to the summary field recommender system, however, some movies somehow made sense, as the  actors are the same in some of the movies. However, I believe that the results of the starring field do not necessarily provide the same genre, or type of movie as a recommender system, which is however, necessary for a recommender system. 
+The title field did not make sense in my opinion, which can also be shown according to the score of every movie in the output file, as these are more likely completely random, but based on only a string, which is the title. 
+
+Therefore, in my opinion the recommender system is good to base it on the summary field, but the starring/title field makes less sense to base the recommender system on. 
+The results of the summaryfield results also prove this, as the genre of the movie interstellar is science fiction. When looking through the first 5 movies of this recommender system, one will see that timecop, natural born killers and alien abduction are all science fiction movies. I believe that this indicates that the summary field could prove to be a good parameter to create a recommender system for. 
+The results of the starring field prove this also, as these movies are not necessarily science fiction movies, but provide movies in which the same actors are listed. The score of these movies based on the original movie, interstellar, also indicate this. These scores are definetely lower than the scores of the summaryfield movie list. 
+The results in the title field are almost all zero, except for the interstellar movie, which is 0.06. I believe this is remarkable, as this same movie is provided with a score of 0.99 + in the summaryfield/starringfield results file, even though other parameters are used. As the other movies have a score of '0', I believe that this indicates that the title field does not provide the best parameter to base the receommender system on. 
+
+
